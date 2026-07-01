@@ -1,68 +1,110 @@
-EMPLOYEE ATTRITION WEB APPLICATION USING PYTHON AND STREAMLIT SHARING.
+# 📈 DrLoE: Employee Attrition Prediction App
 
+DrLoE (Life of an Employee) is a modern, premium-grade web application built to predict employee attrition using machine learning. Driven by a Random Forest Classifier, it provides organizations with actionable insights to anticipate talent churn, understand burnout factors, and optimize workforce retention strategies.
 
-Goal:
- To Predict The Future Employee Who Would Tend To Leave The Company.
+---
 
-Employee attrition is defined as the natural process by which employees leave the workforce – for example, through resignation for personal reasons or retirement – and are not immediately replaced.
+## ✨ Features
 
-Employee attrition occurs when the size of your workforce diminishes over time due to unavoidable factors such as employee resignation for personal or professional reasons.
-Employees are leaving the workforce faster than they are hired, and it is often outside the employer’s control. For example, let’s say that you have opened a new office designated as the Sales Hub for your company. Every salesperson must work out of this office – but a few employees cannot relocate and choose to leave the company. This is a typical reason for employee attrition.
-But there are other reasons for attrition as well, including the lack of professional growth, a hostile work environment, or declining confidence in the company’s market value. Weak leadership is another factor that often drives attrition among employees.
+- **🎯 Individual Risk Profiling**:
+  - Predicts whether a specific employee is likely to stay or leave the organization.
+  - Generates a **Churn Risk Score (%)** using model probability outputs.
+  - Dynamically displays **💡 Retention Insights** based on employee metrics (e.g., workload warning, low satisfaction, compensation gaps).
 
-Step by Step process in Building the App:
-1)Build the Machine Learning Model In Python
-2)Build the Web app using Streamlit
+- **📂 Bulk Processing & Analytics Dashboard**:
+  - Upload a batch CSV file to analyze retention risk across multiple teams.
+  - Displays high-level workforce metrics (Total Evaluated, Predicted Attrition, General Attrition Rate, and Average Risk Score).
+  - Includes interactive visualizations:
+    - **Attrition Forecast Distribution** (Pie Chart)
+    - **Attrition Rate by Department** (Seaborn Bar Plot)
+  - Exports annotated predictions as a downloadable CSV.
 
-1) Building the Machine Learning Algorithm:
-The following Steps were taking in building the machine Learning Algorithm.
-	a. Data  Pre-processing
-The data was downloaded and the imported into the python Environment with aid of the NumPy and pandas libraries. The existing employee dataset and the employee who have left dataset was collected. The two dataset was concatenated to from and single data set, the Employee who have left was assign a label value 1(Target variable Churn), while the existing employee was assigned a label value 0(Target variable Churn)Next, we check for missing values, no missing values was found. 
+- **🎨 Premium User Experience**:
+  - Styled with the modern **Outfit** typography.
+  - Glassmorphic metric cards, subtle gradients, and reactive layout design.
 
-	b. Exploratory Data Analysis
-We perform EDA to give us insight into the dataset. Numerical Descriptive data analysis was performed and Visualization. We also check for the distribution of all the features in the dataset, we found that all of the features are not distributed normally, as thus we decided to use the Non parametric machine learning Algorithm in modeling the dataset
+---
 
-	c. Splitting the data into train and test set
-The training dataset was used in training the different machine learning algorithm considered while the test set will be used in Evaluation of the model performance.
+## 🛠️ Tech Stack & Dependencies
 
-	d. Training the Data
-The following Non parametric machine learning Algorithm was used
-SVM, Random Forest, Decision Tree, K nearest Neighbor Algorithm
+- **Core Application**: [Streamlit](https://streamlit.io/) (Interactive Web UI)
+- **Data Engineering & Visualization**: `pandas`, `numpy`, `matplotlib`, `seaborn`, `Pillow`
+- **Machine Learning**: `scikit-learn` (v1.1.3), `category-encoders`, `joblib`
 
-	e. Evaluation
-The choice of the model was based on the accuracy score and the Kohen kappa value after evaluating the model. Since the data is an unbalanced dataset major weight was given to the Cohen kappa statistics
-f)	Prediction
-The Prediction is based on input collected by the user of the machine learning algorithm which was made possible by Streamlit.
+---
 
+## 📂 Directory Structure
 
+```
+├── app.py                     # Streamlit web application source code
+├── requirements.txt           # Python package dependencies
+├── clean_ohe.pkl              # Pre-trained Category Encoder (One-Hot Encoder)
+├── emp_rf.pkl                 # Pre-trained Random Forest Classifier model
+├── sample.png                 # Sample image showcasing correct CSV schema
+├── existing_employee.csv      # Reference dataset for active employees
+└── employee_who_left.csv      # Reference dataset for departed employees
+```
 
-2) Building the web app using Streamlit
-The Streamlit library was implement inside the machine learning code to build the web application. The major function used are 
-st.header() for creating header inside the web application
-st.subheader() for creating sub header inside of the web application
-st.write() for writing text information inside the dataset
-st.image() for putting images inside the web application
-st.dataframes() for putting table inside   the web application
-if st.button() for creating web button where user can click in the web page.
+---
 
-The requirement.txt file should contain a list all the dependencies (Packages) required to run the python code successfully.
-For instance, for this project our requirement.txt contains the following
+## 🚀 Getting Started
 
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Snehamakharia/Employee-Attrition-Prediction.git
+cd Employee-Attrition-Prediction
+```
 
-## Usage
-- Clone my repository.
-- Open CMD/terminal in working directory.
-- Run following command.
-  ```
-  pip install -r requirements.txt
-  ```
-- `app.py` is the main Python file of Streamlit Web-Application. 
-- To run app, write following command in CMD. or use any IDE.
-  ```
-  streamlit run app.py
-  ```
-- For more explanation of this project see the tutorial on Machine Learning Hub YouTube channel.
+### 2. Set Up a Virtual Environment (Recommended)
+```bash
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+```
 
-# Hurray, Your App is Up and Running. 
-## Just follow☝️ me and Star⭐ my repository 
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
+> [!NOTE]
+> `scikit-learn==1.1.3` is required to deserialize the pre-trained model (`emp_rf.pkl`) successfully.
+
+### 4. Run the Streamlit Application
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📊 Machine Learning Pipeline
+
+1. **Data Pre-processing**:
+   - Merged the datasets of active employees and departed employees.
+   - Target variable (`Churn`): `1` for employees who left, `0` for existing employees.
+   - Categorical variables (`dept`, `salary`) encoded using a cached Category Encoder.
+
+2. **Model Selection**:
+   - Compared multiple models (SVM, Decision Trees, KNN, and Random Forest).
+   - Chosen model: **Random Forest Classifier** due to its superior capability in handling non-linear decision boundaries and imbalanced classes.
+   - Primary evaluation metric: **Cohen's Kappa Statistics** (giving robust weight to prediction accuracy on minority classes).
+
+---
+
+## 📋 Batch Schema Format
+
+When uploading a CSV for batch predictions, ensure the following columns are present:
+
+| Column Name | Type | Description |
+|---|---|---|
+| `Satisfaction_level` | Float | Job satisfaction score between `0.0` and `1.0` |
+| `Last_evaluation` | Float | Last evaluation score between `0.0` and `1.0` |
+| `number_project` | Integer | Number of active projects assigned |
+| `average_montly_hours` | Float | Average hours worked per month |
+| `time_spend_company` | Integer | Number of years spent in the organization |
+| `Work_accident` | Integer | `0` = No work accident, `1` = Experienced work accident |
+| `promotion_last_5years` | Integer | `0` = No promotion, `1` = Promoted in last 5 years |
+| `dept` | String | Department (e.g., `sales`, `technical`, `support`, `IT`, etc.) |
+| `salary` | String | Salary tier (`low`, `medium`, `high`) |
