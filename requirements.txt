@@ -1,9 +1,9 @@
-﻿numpy
+numpy
 pandas
 matplotlib
 seaborn
-streamlit
+streamlit>=1.22.0
 Pillow
-scikit-learn
+scikit-learn>=1.0.0
 xlrd
 category-encoders
